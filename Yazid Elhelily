@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sign-In with Firebase</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+</head>
+<body>
+    <!-- Button to trigger Google Sign-In -->
+    <button id="google-signin-btn">Sign in with Google</button>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAhLqjAGsAzapUX_5kvJXvWCisOu2zfDa4",
+            authDomain: "abdelrahmanaly-15924.firebaseapp.com",
+            projectId: "abdelrahmanaly-15924",
+            storageBucket: "abdelrahmanaly-15924.firebasestorage.app",
+            messagingSenderId: "637709239029",
+            appId: "1:637709239029:web:44aba1b401adbf118bbbbc",
+            measurementId: "G-QG5DCVGQH6"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Google Sign-In provider
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        // Get the Google Sign-In button
+        const googleSignInButton = document.getElementById('google-signin-btn');
+
+        // Attach click event to the button
+        googleSignInButton.addEventListener('click', () => {
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // The signed-in user info
+                    const user = result.user;
+                    console.log("User signed in: ", user);
+                    alert(`Welcome, ${user.displayName}!`);
+                })
+                .catch((error) => {
+                    // Handle errors here
+                    console.error("Error during sign-in: ", error.message);
+                    alert("Error during sign-in, please try again.");
+                });
+        });
+    </script>
+</body>
+</html>
